@@ -7,6 +7,10 @@ public class Citizen extends User{
         super(name, id);
     }
 
+    public Citizen(String name, int postcode){
+        super(name);
+    }
+
     public int getPostcode() {
         return postcode;
     }

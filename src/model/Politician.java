@@ -1,20 +1,30 @@
 package model;
 
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class Politician extends User{
-    private HashSet<Integer> affiliation;
+    private HashSet<Integer> affiliation = new HashSet<>();
 
 
     public Politician(String name, int id) {
         super(name, id);
     }
 
-    public HashSet<Integer> getAffiliation() {
-        return affiliation;
+    public Politician(String name){
+        super(name);
     }
 
-    public void setAffiliation(HashSet<Integer> affiliation) {
-        this.affiliation = affiliation;
+    public boolean addAffiliation(int postCode){
+        return affiliation.add(postCode);
     }
+
+    public boolean removeAffiliation(int postCode){
+        return affiliation.remove(postCode);
+    }
+
+    public Iterator<Integer> getAffiliations() {
+        return affiliation.iterator();
+    }
+
 }
