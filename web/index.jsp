@@ -11,6 +11,6 @@
     <title><%="test"%></title>
   </head>
   <body>
-  $END$
+  $END$xxxx
   </body>
 </html>
