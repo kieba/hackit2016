@@ -37,19 +37,20 @@ public class FormCreator extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Poll poll = SimpleStorage.getINSTANCE().getPollById(1);
 		PrintWriter out = response.getWriter();
-		 out.println("<!DOCTYPE html>");
+		 out.println("<!DOCTYPE html>"); 
          out.println("<html><head>");
          out.println("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
          out.println("<title>" + poll.getTitle() + "</title></head>");
          out.println("<body>");
-         out.println("<form name=\"opinion\" action=\"${pageContext.request.contextPath}/Opinion\" method=\"post\">");
+         out.println("<form name=\"" + poll.getId() + "\" action=\"${pageContext.request.contextPath}/Opinion\" method=\"post\">");
          out.println("<label for=\"name\">Teilnehmer:</label><input type=\"text\" name=\"citizen\" value=\"\"/><br/>");
          out.println("<p>" + poll.getTitle() + "</p>");
          out.println("<p>" + poll.getDescription() + "</p>");
-         
+         out.println("<input type=\"hidden\" name=\"poll_id\" value\"" + poll.getId() + "\">");
          Iterator<PollPart> pollPartInterator = poll.getPollParts();
          while(pollPartInterator.hasNext()) {
-        	 PollPart pollParts = (PollPart)pollPartInterator.next(); 
+        	 PollPart pollParts = pollPartInterator.next(); 
+        	 out.println("<input type=\"hidden\" name=\"pollPart_id\" value\"" + pollParts.getPartNo() + "\">");
         	 out.println("<p>" + pollParts.getQuestion() + "</p>");
         	 for(int i = 0;i<pollParts.getOptions().size();i++) {
         		 
