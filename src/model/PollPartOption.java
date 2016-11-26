@@ -1,13 +1,11 @@
 package model;
 
 public class PollPartOption {
-    private PollPart parent;
     private int optionId;
     private String description;
     private String value;
 
-    public PollPartOption(PollPart parent, int optionId, String description, String value) {
-        this.parent = parent;
+    public PollPartOption(int optionId, String description, String value) {
         this.optionId = optionId;
         this.description = description;
         this.value = value;
@@ -19,14 +17,6 @@ public class PollPartOption {
 
     public void setValue(String value) {
         this.value = value;
-    }
-
-    public PollPart getParent() {
-        return parent;
-    }
-
-    public void setParent(PollPart parent) {
-        this.parent = parent;
     }
 
     public int getOptionId() {

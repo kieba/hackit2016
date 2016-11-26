@@ -3,4 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+    <servlet>
+        <servlet-name>Opinion</servlet-name>
+        <servlet-class>Opinion</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Opinion</servlet-name>
+        <url-pattern>/Opinion</url-pattern>
+    </servlet-mapping>
 </web-app>
