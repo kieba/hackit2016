@@ -39,7 +39,7 @@ public class FormCreator extends HttpServlet {
          out.println("<body>");
          out.println("<p>");
          poll.getDescription();
-         out.println("</p>"); 
+         out.println("</p>");  
          out.println("<form name=\"opinion\" action=\"${pageContext.request.contextPath}/Opinion\" method=\"post\">");
          out.println("<label for=\"name\">Teilnehmer:</label><input type=\"text\" name=\"citizen\" value=\"\"/><br/>");
          out.println("<div style=\"clear:both;\"><input type=\"submit\" value=\"Absenden\"/></div>");
