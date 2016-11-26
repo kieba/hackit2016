@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +14,6 @@ import model.Poll;
 /**
  * Servlet implementation class FormCreator
  */
-@WebServlet("/FormCreator")
 public class FormCreator extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -37,8 +36,8 @@ public class FormCreator extends HttpServlet {
          out.println("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
          out.println("<title>" + poll.getTitle() + "</title></head>");
          out.println("<body>");
-         out.println("<p>");
-         poll.getDescription();
+         out.println("<p>" + poll.getTitle() + "</p>");
+         out.println("<p>" + poll.getDescription() + "</p>");
          out.println("</p>");  
          out.println("<form name=\"opinion\" action=\"${pageContext.request.contextPath}/Opinion\" method=\"post\">");
          out.println("<label for=\"name\">Teilnehmer:</label><input type=\"text\" name=\"citizen\" value=\"\"/><br/>");
