@@ -1,9 +1,6 @@
 import exception.AlreadyExistException;
 import exception.AlreadyVotedException;
-import model.Politician;
-import model.Poll;
-import model.PollPartAnswer;
-import model.User;
+import model.*;
 
 import java.util.Iterator;
 
@@ -21,5 +18,5 @@ public interface IStorage {
     Poll savePoll(Poll poll);
     Poll getPollById(int id);
 
-    void setVote(User user, PollPartAnswer answer) throws AlreadyVotedException;
+    void setVote(PollAnswer answer) throws AlreadyVotedException;
 }

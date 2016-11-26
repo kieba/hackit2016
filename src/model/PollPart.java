@@ -3,24 +3,24 @@ package model;
 import java.util.LinkedList;
 
 public class PollPart {
-    protected Poll parrent;
+    protected Poll parent;
     protected LinkedList<PollPartOption> options;
     protected int partNo;
     protected String question;
 
-    public PollPart(Poll parrent, LinkedList<PollPartOption> options, int partNo, String question) {
-        this.parrent = parrent;
+    public PollPart(Poll parent, LinkedList<PollPartOption> options, int partNo, String question) {
+        this.parent = parent;
         this.options = options;
         this.partNo = partNo;
         this.question = question;
     }
 
-    public Poll getParrent() {
-        return parrent;
+    public Poll getParent() {
+        return parent;
     }
 
-    public void setParrent(Poll parrent) {
-        this.parrent = parrent;
+    public void setParent(Poll parent) {
+        this.parent = parent;
     }
 
     public LinkedList<PollPartOption> getOptions() {

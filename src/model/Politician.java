@@ -1,7 +1,6 @@
 package model;
 
 import java.util.HashSet;
-import java.util.Iterator;
 
 public class Politician extends User{
     private HashSet<Integer> affiliation = new HashSet<>();
@@ -23,8 +22,8 @@ public class Politician extends User{
         return affiliation.remove(postCode);
     }
 
-    public Iterator<Integer> getAffiliations() {
-        return affiliation.iterator();
+    public HashSet<Integer> getAffiliations() {
+        return affiliation;
     }
 
 }
