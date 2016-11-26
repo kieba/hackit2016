@@ -13,7 +13,7 @@
     </servlet-mapping>
     <servlet>
     	<servlet-name>FormCreator</servlet-name>
-    	<servlett-class>FormCreator</servlett-class>
+    	<servlet-class>FormCreator</servlet-class>
     </servlet>
     <servlet-mapping>
     	<servlet-name>FormCreator</servlet-name>
