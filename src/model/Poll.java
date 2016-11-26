@@ -9,7 +9,7 @@ public class Poll {
     protected String title;
     protected long validUntil;
     protected String description;
-    protected LinkedList<PollPart> pollParts;
+    protected LinkedList<PollPart> pollParts = new LinkedList<>();
 
     public String getTitle() {
         return title;

@@ -107,6 +107,9 @@ public class SimpleStorage implements IStorage{
 
     @Override
     public Poll getPollById(int id) {
+        if(id == -1){
+            id = 1;
+        }
         return polls.get(id);
     }
 
