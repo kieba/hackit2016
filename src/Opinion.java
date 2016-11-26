@@ -1,18 +1,15 @@
-import java.io.IOException;
+import exception.InvalidRequestException;
+import model.User;
+
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import model.PollPart;
-import model.PollPartAnswer;
-import model.User;
+import java.io.IOException;
 
 /**
  * Servlet implementation class Opinion
  */
-@WebServlet("/Opinion")
 public class Opinion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -37,10 +34,15 @@ public class Opinion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User citizen = new User(request.getParameter("citizen"));
+		User citizen = SimpleStorage.getINSTANCE().getUser(request.getParameter("citizen"));
+		if(citizen == null){
+			throw new InvalidRequestException("No user given.");
+		}
+
+
 		//PollPart pollPart = (PollPart) request.getParameter("poll_part");
 		//Object answer = request.getParameter("question_1");
-		//PollPartAnswer answer = new PollPartAnswer(po); 
+		//PollPartAnswer answer = new PollPartAnswer(po);
 		doGet(request, response);
 	}
 

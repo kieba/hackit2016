@@ -21,6 +21,7 @@ public class SimpleStorage implements IStorage{
     public static SimpleStorage getINSTANCE(){
         if(INSTANCE == null){
             INSTANCE = new SimpleStorage();
+            ExampleData.fillData(INSTANCE);
         }
         return INSTANCE;
     }
