@@ -18,7 +18,7 @@ public class SimpleStorage implements IStorage{
     HashSet<PollAnswer> votes = new HashSet<>();
 
 
-    public SimpleStorage getINSTANCE(){
+    public static SimpleStorage getINSTANCE(){
         if(INSTANCE == null){
             INSTANCE = new SimpleStorage();
         }
