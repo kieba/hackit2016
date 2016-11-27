@@ -75,7 +75,7 @@
             out.println("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
             out.println("<title>" + poll.getTitle() + "</title></head>");
             out.println("<body>");
-            out.println("<form name=\"" + poll.getId() + "\" action=\"/standard.Opinion\" method=\"post\">");
+            out.println("<form name=\"" + poll.getId() + "\" action=\"/Opinion\" method=\"post\">");
             out.print(logic.printHiddenField());
             out.println("<div class=\"form-group\">");
             out.println("<label for=\"name\">Participant:</label><br><label>" + logic.getUser().getName()+ "</label><br/>");

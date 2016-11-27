@@ -35,7 +35,7 @@ public class Opinion extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		IStorage storage = SimpleStorage.getINSTANCE();
 
-		User user = storage.getUser(Integer.parseInt(request.getParameter("citizen")));
+		User user = storage.getUser(Integer.parseInt(request.getParameter("account_id")));
 		Citizen citizen;
 		if(user instanceof Citizen){
 			citizen = (Citizen)user;
@@ -58,6 +58,7 @@ public class Opinion extends HttpServlet {
 		}
 
 		storage.savePoll(currentPoll);
+		response.sendRedirect("/surveylist.jsp?account_id=" + user.getId());
 		doGet(request, response);
 	}
 

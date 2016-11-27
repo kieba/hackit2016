@@ -9,7 +9,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Opinion</servlet-name>
-        <url-pattern>/standard.Opinion</url-pattern>
+        <url-pattern>/Opinion</url-pattern>
     </servlet-mapping>
 
 </web-app>
