@@ -30,7 +30,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse" >
           <ul class="nav navbar-nav">
-            <li class="active"><a href="?side=survey">Survey</a></li>
+            <li><a href="?side=survey">Survey</a></li>
             <li><a href="?side=request">Request</a></li>
            </ul>
            <ul class="nav navbar-nav navbar-right">

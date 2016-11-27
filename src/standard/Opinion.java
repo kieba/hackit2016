@@ -1,3 +1,5 @@
+package standard;
+
 import exception.AlreadyVotedException;
 import exception.InvalidRequestException;
 import model.*;
@@ -10,7 +12,7 @@ import java.io.IOException;
 import java.util.Iterator;
 
 /**
- * Servlet implementation class Opinion
+ * Servlet implementation class standard.Opinion
  */
 public class Opinion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -18,11 +20,6 @@ public class Opinion extends HttpServlet {
     /**
      * Default constructor. 
      */
-    public Opinion() {
-    	
-        String test = "";
-        test = test;
-    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

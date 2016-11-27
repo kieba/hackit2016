@@ -5,18 +5,11 @@
          version="3.1">
     <servlet>
         <servlet-name>Opinion</servlet-name>
-        <servlet-class>Opinion</servlet-class>
+        <servlet-class>standard.Opinion</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Opinion</servlet-name>
-        <url-pattern>/Opinion</url-pattern>
+        <url-pattern>/standard.Opinion</url-pattern>
     </servlet-mapping>
-    <servlet>
-    	<servlet-name>FormCreator</servlet-name>
-    	<servlet-class>FormCreator</servlet-class>
-    </servlet>
-    <servlet-mapping>
-    	<servlet-name>FormCreator</servlet-name>
-    	<url-pattern>/FormCreator</url-pattern>
-    </servlet-mapping>
+
 </web-app>

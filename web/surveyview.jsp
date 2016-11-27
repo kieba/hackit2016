@@ -5,14 +5,53 @@
   Time: 16:49
   To change this template use File | Settings | File Templates.
 --%>
-<%@page import="sun.reflect.ReflectionFactory.GetReflectionFactoryAction"%>
-<%@ page import="java.io.PrintWriter" %>
+<%@page import="model.Poll"%>
 <%@ page import="model.PollPart" %>
-<%@ page import="java.util.Iterator" %>
 <%@ page import="model.PollPartOption" %>
-<%@ page import="model.Poll" %>
 <%@ page import="standard.SimpleStorage" %>
+<%@ page import="java.io.IOException" %>
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="java.util.Iterator" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%!
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    int id = Integer.parseInt(request.getParameter("id"));
+    Poll poll = SimpleStorage.getINSTANCE().getPollById(id);
+
+    PrintWriter writer = response.getWriter();
+
+    writer.print("<table>");
+    for (Iterator<PollPart> it = poll.getPollParts(); it.hasNext(); ) {
+    PollPart part = it.next();
+    writer.append("<tr>" + printPart(part) + "</tr>");
+
+    }
+    writer.print("</table>");
+
+    }
+
+    private String printPart(PollPart part){
+    StringBuilder builder = new StringBuilder();
+
+    builder.append("<table>");
+    builder.append("<tr colspan=\"" + part.getOptions().size() + "\"><td>" + part.getQuestion() + "</td></tr>");
+    builder.append("<tr>");
+
+    for(PollPartOption option : part.getOptions()){
+    builder.append(printOption(option));
+    }
+
+    builder.append("</tr>");
+    builder.append("</table>");
+    return builder.toString();
+    }
+
+    private String printOption(PollPartOption option){
+    return "<td>" + option.getValue() + ":" + option.getVotes() + "</td>";
+    }
+%>
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,7 +75,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse" >
             <ul class="nav navbar-nav">
-                <li class="active"><a href="?side=survey">Survey</a></li>
+                <li><a href="?side=survey">Survey</a></li>
                 <li><a href="?side=request">Request</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -59,37 +98,7 @@
 <div class="container">
     <!-------------------------CONTENT LOAD ---------------------------->
 
-    <%
-        Poll poll = SimpleStorage.getINSTANCE().getPollById(Integer.parseInt(request.getParameter("id")));
 
-        if(poll != null){
-            out.println("<!DOCTYPE html>");
-            out.println("<html><head>");
-            out.println("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
-            out.println("<title>" + poll.getTitle() + "</title></head>");
-            out.println("<body>");
-            out.println("<form name=\"" + poll.getId() + "\" action=\"/standard.Opinion\" method=\"post\">");
-            out.println("<label for=\"name\">Teilnehmer:</label><input type=\"text\" name=\"citizen\" value=\"\"/><br/>");
-            out.println("<p>" + poll.getTitle() + "</p>");
-            out.println("<p>" + poll.getDescription() + "</p>");
-            out.println("<input type=\"hidden\" name=\"poll_id\" value=\"" + poll.getId() + "\">");
-            Iterator<PollPart> pollPartInterator = poll.getPollParts();
-            while(pollPartInterator.hasNext()) {
-                PollPart pollParts = pollPartInterator.next();
-                out.println("<p>" + pollParts.getQuestion() + "</p>");
-                for(int i = 0;i<pollParts.getOptions().size();i++) {
-
-                    PollPartOption option = pollParts.getOptions().get(i);
-                    out.println("<div style=\"float:left;width:150px;\"><p style=\"1en;\">" + (option.getDescription() != null && !option.getDescription().equals("") ? option.getDescription() : "&nbsp;") + "</p><input type=\"radio\" name=\"pollPart_id"+ pollParts.getPartNo() + "\" value=\"" + option.getOptionId() + "\"><p>" + option.getValue() + "</p></div>");
-                }
-
-            }
-            out.println("<div style=\"clear:both;\"><input type=\"submit\" value=\"Absenden\"/></div>");
-            out.println("</form>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    %>
 
     <!-------------------------CONTENT LOAD END------------------------->
     <footer>
