@@ -79,7 +79,7 @@
     while(polls.hasNext())
     {
         Poll poll = polls.next();
-        out.println("<div class=\"survey-gp surveylistview\"><a href=\"survey.jsp?account_id=" + logic.getUser().getId() +"&id=" + poll.getId() + "\">" + "<label>" + poll.getTitle() + " - " + poll.getDescription()  + "</label>" + "</a></div></br>");
+        out.println("<div class=\"survey-gp surveylistview\"><a href=\"" + (logic.isCitizen() ? "survey" : "surveyview") +".jsp?account_id=" + logic.getUser().getId() +"&id=" + poll.getId() + "\">" + "<label>" + poll.getTitle() + " - " + poll.getDescription()  + (logic.isCitizen() && SimpleStorage.getINSTANCE().hasVoted(poll,(Citizen)logic.getUser()) ? "(voted)" : "") +"</label>" + "</a></div></br>");
 
     }
 

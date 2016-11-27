@@ -89,13 +89,13 @@ public class SimpleStorage implements IStorage{
 
     @Override
     public Iterator<Poll> getPollsByPolitician(Politician politician) {
-        LinkedList<Poll> polls = new LinkedList<>();
-        for (Poll poll:polls) {
+        LinkedList<Poll> tmp = new LinkedList<>();
+        for (Poll poll:polls.values()) {
             if(poll.getPolitician() == politician){
-                polls.add(poll);
+                tmp.add(poll);
             }
         }
-        return polls.iterator();
+        return tmp.iterator();
     }
 
     @Override
@@ -124,5 +124,16 @@ public class SimpleStorage implements IStorage{
             }
         }
         votes.add(answer);
+    }
+
+    public boolean hasVoted(Poll poll, Citizen user){
+        for (PollAnswer existingAnswer : votes) {
+            if(existingAnswer.getPoll() == poll &&
+                    existingAnswer.getCitizen() == user){
+                return true;
+            }
+        }
+
+        return false;
     }
 }

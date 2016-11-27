@@ -13,9 +13,14 @@
 <%@ page import="model.Poll" %>
 <%@ page import="standard.SimpleStorage" %>
 <%@ page import="standard.AccountLogic" %>
+<%@ page import="model.Citizen" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     AccountLogic logic = new AccountLogic(Integer.parseInt(request.getParameter("account_id")));
+    Poll poll = SimpleStorage.getINSTANCE().getPollById(Integer.parseInt(request.getParameter("id")));
+    if(SimpleStorage.getINSTANCE().hasVoted(poll, (Citizen)logic.getUser())){
+        response.sendRedirect("/surveylist.jsp?account_id=" + logic.getUser().getId());
+    }
     if(logic == null){
         return;
     }
@@ -68,7 +73,7 @@
 
     <%
 
-        Poll poll = SimpleStorage.getINSTANCE().getPollById(Integer.parseInt(request.getParameter("id")));
+
 
         if(poll != null){
             out.println("<head>");
