@@ -12,7 +12,14 @@
 <%@ page import="model.PollPartOption" %>
 <%@ page import="model.Poll" %>
 <%@ page import="standard.SimpleStorage" %>
+<%@ page import="standard.AccountLogic" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    AccountLogic logic = new AccountLogic(Integer.parseInt(request.getParameter("account_id")));
+    if(logic == null){
+        return;
+    }
+%>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,7 +49,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <form class="navbar-form navbar-right">
                     <div class="form-group">
-                        <input type="text" placeholder="Firstname" class="form-control">
+                        <input type="text" placeholder="Firstname" class="form-control" value="<%=logic.getUser().getName()%>">
                     </div>
                     <div class="form-group">
                         <input type="password" placeholder="Lastname" class="form-control">
@@ -60,6 +67,7 @@
     <!-------------------------CONTENT LOAD ---------------------------->
 
     <%
+
         Poll poll = SimpleStorage.getINSTANCE().getPollById(Integer.parseInt(request.getParameter("id")));
 
         if(poll != null){
@@ -68,9 +76,9 @@
             out.println("<title>" + poll.getTitle() + "</title></head>");
             out.println("<body>");
             out.println("<form name=\"" + poll.getId() + "\" action=\"/standard.Opinion\" method=\"post\">");
+            out.print(logic.printHiddenField());
             out.println("<div class=\"form-group\">");
-            // BASTI muss hier ran
-            out.println("<label for=\"name\">Participant:</label><br><label>NAME</label><br/>");
+            out.println("<label for=\"name\">Participant:</label><br><label>" + logic.getUser().getName()+ "</label><br/>");
             out.println("</div>");
             out.println("<div class=\"form-group survey-gp\">");
             out.println("<label for=\"name\">Title:</label>");
