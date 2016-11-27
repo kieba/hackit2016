@@ -6,9 +6,18 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@page import="model.Poll"%>
+<%@ page import="standard.AccountLogic" %>
 <%@ page import="standard.SimpleStorage" %>
 <%@ page import="java.util.Iterator" %>
+<%@ page import="model.Citizen" %>
+<%@ page import="model.Politician" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    AccountLogic logic = new AccountLogic(Integer.parseInt(request.getParameter("account_id")));
+    if(logic == null){
+        return;
+    }
+%>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,17 +64,22 @@
 <div class="container">
     <!-------------------------CONTENT LOAD ---------------------------->
 <%
-    Iterator<Poll> polls = SimpleStorage.getINSTANCE().getOpenPollsByPostcode(Integer.valueOf(request.getParameter("postalcode")));
+    Iterator<Poll> polls;
+    if(logic.getUser() instanceof Citizen){
+        polls = SimpleStorage.getINSTANCE().getOpenPollsByPostcode(Integer.valueOf(((Citizen)logic.getUser()).getId()));
+    }else{
+        polls = SimpleStorage.getINSTANCE().getPollsByPolitician((Politician)logic.getUser());
+    }
 
     out.println("<form name=\"OpinionOverview\" method=\"post\">");
-    out.println("<label>Survey for:</label><br><br>");
+    out.println("<label>Survey for: " + logic.getUser().getName()+"</label><br><br>");
     //out.println("<input type=\"text\" name=\"name\" value=\"" + request.getParameter("name") + "\"/>");
     //out.println("<input type=\"text\" name=\"postalcode\" value\"" + request.getParameter("postalcode") + "\"></br>");
 
     while(polls.hasNext())
     {
         Poll poll = polls.next();
-        out.println("<div class=\"survey-gp surveylistview\"><a href=\"survey.jsp?id=" + poll.getId() + "\">" + "<label>" + poll.getTitle() + " - " + poll.getDescription()  + "</label>" + "</a></div></br>");
+        out.println("<div class=\"survey-gp surveylistview\"><a href=\"survey.jsp?account_id=" + logic.getUser().getId() +"&id=" + poll.getId() + "\">" + "<label>" + poll.getTitle() + " - " + poll.getDescription()  + "</label>" + "</a></div></br>");
 
     }
 

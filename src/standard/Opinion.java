@@ -46,6 +46,7 @@ public class Opinion extends HttpServlet {
 		try {
 			storage.doVote(new PollAnswer(storage.getPollById(Integer.parseInt(request.getParameter("poll_id"))),citizen));
 		} catch (AlreadyVotedException e) {
+			response.getWriter().print("Already voted!");
 			return;
 		}
 
