@@ -35,7 +35,7 @@
             }
         }
 
-        response.sendRedirect("/index.jsp?account_id="+user.getId());
+        response.sendRedirect("index.jsp?account_id="+user.getId());
         return;
     }
 
@@ -48,7 +48,7 @@
 <html>
   <head>
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><%="Citizen standard.Opinion"%></title>
+    <title><%="Citizen Opinion"%></title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
   </head>
@@ -75,7 +75,7 @@
               <%
                   if(logic.isPolitician()){
               %>
-                <li><a href="surveycreate.jsp?account_id=<%=logic.getUser().getId()%>">Request</a></li>
+                <li><a href="surveycreate.jsp?account_id=<%=logic.getUser().getId()%>">New Request</a></li>
               <%
                   }
               %>

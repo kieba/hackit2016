@@ -44,7 +44,7 @@ public class NewSurvey extends HttpServlet {
 
 		AccountLogic logic = new AccountLogic(Integer.parseInt(request.getParameter("account_id")));
 
-		Politician politician = (Politician) storage.getUser(2);
+		Politician politician = (Politician)logic.getUser();
 		
 		long validUntil = 0l;
 		String validUntilString = request.getParameter("validUntil");

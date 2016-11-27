@@ -28,7 +28,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><%="Citizen standard.Opinion"%></title>
+    <title><%="Citizen Opinion"%></title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
 </head>
@@ -48,7 +48,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse" >
             <ul class="nav navbar-nav">
-                <li><a href="surveylist.jsp?account_id=<%=logic.getUser().getId()%>">SurveyList</a></li>
+                <li><a href="surveylist.jsp?account_id=<%=logic.getUser().getId()%>">Survey List</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <form class="navbar-form navbar-right">
@@ -89,13 +89,14 @@
             Iterator<PollPart> pollPartInterator = poll.getPollParts();
             while(pollPartInterator.hasNext()) {
                 PollPart pollParts = pollPartInterator.next();
+                out.println("<div class=\"form-group\" style=\"clear:left\">");
                 out.println("<p>" + pollParts.getQuestion() + "</p>");
                 for(int i = 0;i<pollParts.getOptions().size();i++) {
 
                     PollPartOption option = pollParts.getOptions().get(i);
                     out.println("<div style=\"float:left;width:150px;\"><p style=\"1en;\">" + (option.getDescription() != null && !option.getDescription().equals("") ? option.getDescription() : "&nbsp;") + "</p><input type=\"radio\" name=\"pollPart_id"+ pollParts.getPartNo() + "\" value=\"" + option.getOptionId() + "\"><p>" + option.getValue() + "</p></div>");
                 }
-
+                out.println("</div><br>");
             }
             out.println("<div style=\"clear:both;\"><input class=\"btn btn-primary\" type=\"submit\" value=\"Absenden\"/></div>");
             out.println("</div>");

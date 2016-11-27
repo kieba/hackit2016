@@ -14,7 +14,7 @@
 <html>
   <head>
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><%="Citizen standard.Opinion"%></title>
+    <title><%="Citizen Opinion"%></title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
    

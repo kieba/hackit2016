@@ -55,7 +55,7 @@ public class Opinion extends HttpServlet {
 
 		while (iterator.hasNext()){
 			PollPart part = iterator.next();
-			part.addVote(Integer.parseInt(request.getParameter("pollPart_id" + part.getPartNo())));
+			part.addVote(Integer.parseInt(request.getParameter("pollPart_id" + part.getPartNo()))-1);
 		}
 
 		storage.savePoll(currentPoll);
