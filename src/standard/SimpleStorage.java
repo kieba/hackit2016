@@ -80,7 +80,7 @@ public class SimpleStorage implements IStorage{
     public Iterator<Poll> getOpenPollsByPostcode(int postcode) {
         LinkedList<Poll> tmp = new LinkedList<>();
         for (Poll poll:polls.values()) {
-            if(poll.getValidUntil() >= System.currentTimeMillis()){
+            if(poll.getValidUntil() >= System.currentTimeMillis() && poll.getPolitician().getAffiliations().contains(postcode)){
                 tmp.add(poll);
             }
         }
