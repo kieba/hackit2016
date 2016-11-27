@@ -15,21 +15,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%!
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    int id = Integer.parseInt(request.getParameter("id"));
-    Poll poll = SimpleStorage.getINSTANCE().getPollById(id);
-
-    PrintWriter writer = response.getWriter();
-
-    writer.print("<table>");
-    for (Iterator<PollPart> it = poll.getPollParts(); it.hasNext(); ) {
-    PollPart part = it.next();
-    writer.append("<tr>" + printPart(part) + "</tr>");
-
-    }
-    writer.print("</table>");
-
-    }
 
     private String printPart(PollPart part){
     StringBuilder builder = new StringBuilder();
@@ -98,6 +83,19 @@
 <div class="container">
     <!-------------------------CONTENT LOAD ---------------------------->
 
+    <%
+        int id = Integer.parseInt(request.getParameter("id"));
+        Poll poll = SimpleStorage.getINSTANCE().getPollById(id);
+
+
+        out.print("<table>");
+        for (Iterator<PollPart> it = poll.getPollParts(); it.hasNext(); ) {
+            PollPart part = it.next();
+            out.append("<tr>" + printPart(part) + "</tr>");
+
+        }
+        out.print("</table>");
+    %>
 
 
     <!-------------------------CONTENT LOAD END------------------------->
