@@ -78,13 +78,13 @@ public class SimpleStorage implements IStorage{
 
     @Override
     public Iterator<Poll> getOpenPollsByPostcode(int postcode) {
-        LinkedList<Poll> polls = new LinkedList<>();
-        for (Poll poll:polls) {
+        LinkedList<Poll> tmp = new LinkedList<>();
+        for (Poll poll:polls.values()) {
             if(poll.getValidUntil() >= System.currentTimeMillis()){
-                polls.add(poll);
+                tmp.add(poll);
             }
         }
-        return polls.iterator();
+        return tmp.iterator();
     }
 
     @Override

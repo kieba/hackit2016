@@ -17,6 +17,7 @@ public class ExampleData {
 
 
         Politician polBernd = new Politician("Pol. Bernd");
+        polBernd.addAffiliation(33142);
         try {
             storage.createUser(polBernd);
         } catch (AlreadyExistException e) {
