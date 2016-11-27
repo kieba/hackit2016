@@ -1,5 +1,7 @@
 package standard;
 
+import model.Citizen;
+import model.Politician;
 import model.User;
 
 public class AccountLogic {
@@ -12,6 +14,14 @@ public class AccountLogic {
 
     public User getUser(){
         return user;
+    }
+
+    public boolean isPolitician(){
+        return user instanceof Politician;
+    }
+
+    public boolean isCitizen(){
+        return user instanceof Citizen;
     }
 
     public String printHiddenField(){
