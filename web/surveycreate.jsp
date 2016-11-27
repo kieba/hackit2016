@@ -54,18 +54,28 @@
   <div class="container">
   <!-------------------------CONTENT LOAD ---------------------------->
   <form name="newForm" action="standard.NewSurvey" method="post">
-  	<label for="title">Titel:</label><input type="text" name="title" value=""/>
-  	<label for="description">Beschreibung:</label><textarea name="description" rows="3" cols="10"></textarea>
-  	<label for="validUntil">Gültig bis:</label><input type="date" name="validUntil"/></br>
-  	<label for="question1">Frage 1:</label><input type="text" name="question1" value=""/>
-  	<label for="countOptions1">Anzahl Optionen:</label><input type="number" id="countOptions1" name="countOptions1" value="6" onChange="showOptions(1)"></br>
+  	<div class="form-group">
+  		<label for="title">Titel:</label><input type="text" name="title" value="" class="form-control"/>
+  	</div>
+  	<div class="form-group">
+  		<label for="description">Beschreibung:</label><textarea name="description" rows="3" cols="10" class="form-control"></textarea>
+  	</div>
+  	<div class="form-group">
+  		<label for="validUntil">Gültig bis:</label><input type="date" name="validUntil" class="form-control"/></br>
+  	</div>
+  	<div class="form-group">
+  		<label for="question1">Frage 1:</label><input type="text" name="question1" value="" class="form-control"/>
+  	</div>
+  	<div class="form-group">
+  		<label for="countOptions1">Anzahl Optionen:</label><input type="number" id="countOptions1" name="countOptions1" value="6" onChange="showOptions(1)" class="form-control"></br>
+  	</div>
   	<div id="optionContainer1">&nbsp;</div>
   	<div id="questionContainer">&nbsp;</div>
-  	<input type="button" value="Weitere Frage hinzufügen" onClick="addQuestion()"/>
-  	<input type="submit" value="Absenden"/>
+  	<input type="button" value="Weitere Frage hinzufügen" onClick="addQuestion()" class="btn btn-primary"/>
+  	<input type="submit" value="Absenden" class="btn btn-primary"/>
   </form>
   <!-------------------------CONTENT LOAD END------------------------->
-	  <footer>
+	  <footer class="footerup">
 	  	<p>2016 Citizen , HACKATHON ACCENTURE </p>
 	  </footer>
   </div>
@@ -79,7 +89,7 @@
 			var optionContent = '';
 			for(i=0;i<optionCount;i++) {
 				pos = i+1;
-				optionContent += '<span>' + pos + '</span><input name="option' + pos + 'text" type="text"/></p>';
+				optionContent += '<span>Option: ' + pos + '</span><input name="option' + pos + 'text" type="text" class="form-control"/></p>';
 				}
 			document.getElementById('optionContainer'+questionNo).innerHTML = optionContent;
         }
@@ -88,7 +98,7 @@
             	questions++;
             	
             	var questionString = document.getElementById('questionContainer').innerHTML;
-            	questionString += '<label for="question' + questions + '">Frage ' + questions + ':</label><input type="text" name="question' + questions + '" value=""/><label for="countOptions' + questions + '">Anzahl Optionen:</label><input type="number" id="countOptions' + questions + '" name="countOptions' + questions + '" value="6" onChange="showOptions(' + questions + ')"></br><div id="optionContainer' + questions + '">&nbsp;</div>';
+            	questionString += '<div class="questionbox"><label for="question' + questions + '">Frage ' + questions + ':</label><input type="text" name="question' + questions + '" value="" class="form-control"/><label for="countOptions' + questions + '">Anzahl Optionen:</label><input class="form-control" type="number" id="countOptions' + questions + '" name="countOptions' + questions + '" value="6" onChange="showOptions(' + questions + ')"></br><div id="optionContainer' + questions + '">&nbsp;</div></div>';
             	document.getElementById('questionContainer').innerHTML = questionString;
             	showOptions(questions);
             }
