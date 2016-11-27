@@ -24,3 +24,10 @@
     border-top-width: thin;
     margin-top: 2em;
 }
+
+.stimg {
+	width : 100%;
+	height: auto;
+	margin-top: -5em;
+	margin-bottom : 3em;
+}
