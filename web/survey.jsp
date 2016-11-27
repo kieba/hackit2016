@@ -36,7 +36,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse" >
             <ul class="nav navbar-nav">
-                <li class="active"><a href="?side=survey">Survey</a></li>
+                <li><a href="?side=survey">Survey</a></li>
                 <li><a href="?side=request">Request</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -63,16 +63,23 @@
         Poll poll = SimpleStorage.getINSTANCE().getPollById(Integer.parseInt(request.getParameter("id")));
 
         if(poll != null){
-            out.println("<!DOCTYPE html>");
-            out.println("<html><head>");
+            out.println("<head>");
             out.println("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
             out.println("<title>" + poll.getTitle() + "</title></head>");
             out.println("<body>");
             out.println("<form name=\"" + poll.getId() + "\" action=\"/standard.Opinion\" method=\"post\">");
-            out.println("<label for=\"name\">Teilnehmer:</label><input type=\"text\" name=\"citizen\" value=\"\"/><br/>");
+            out.println("<div class=\"form-group\">");
+            // BASTI muss hier ran
+            out.println("<label for=\"name\">Participant:</label><br><label>NAME</label><br/>");
+            out.println("</div>");
+            out.println("<div class=\"form-group survey-gp\">");
+            out.println("<label for=\"name\">Title:</label>");
             out.println("<p>" + poll.getTitle() + "</p>");
+            out.println("<label for=\"name\">Desciption:</label>");
             out.println("<p>" + poll.getDescription() + "</p>");
+            out.println("</div>");
             out.println("<input type=\"hidden\" name=\"poll_id\" value=\"" + poll.getId() + "\">");
+            out.println("<div class=\"form-group survey-gp\">");
             Iterator<PollPart> pollPartInterator = poll.getPollParts();
             while(pollPartInterator.hasNext()) {
                 PollPart pollParts = pollPartInterator.next();
@@ -84,10 +91,9 @@
                 }
 
             }
-            out.println("<div style=\"clear:both;\"><input type=\"submit\" value=\"Absenden\"/></div>");
+            out.println("<div style=\"clear:both;\"><input class=\"btn btn-primary\" type=\"submit\" value=\"Absenden\"/></div>");
+            out.println("</div>");
             out.println("</form>");
-            out.println("</body>");
-            out.println("</html>");
         }
     %>
 
