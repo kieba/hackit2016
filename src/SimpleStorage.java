@@ -53,7 +53,7 @@ public class SimpleStorage implements IStorage{
     public User createUser(User user) throws AlreadyExistException {
         for (User existingUser: users.values()) {
             if(existingUser.getName().equals(user.getName())){
-                throw new AlreadyExistException("The usename is already in use.");
+                throw new AlreadyExistException("The username is already in use.");
             }
         }
 
@@ -114,7 +114,7 @@ public class SimpleStorage implements IStorage{
     }
 
     @Override
-    public void setVote(PollAnswer answer) throws AlreadyVotedException {
+    public void doVote(PollAnswer answer) throws AlreadyVotedException {
         for (PollAnswer existingAnswer : votes) {
             if(existingAnswer.getPoll() == answer.getPoll() &&
                     existingAnswer.getCitizen() == answer.getCitizen()){

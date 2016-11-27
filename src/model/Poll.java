@@ -11,6 +11,8 @@ public class Poll {
     protected String description;
     protected LinkedList<PollPart> pollParts = new LinkedList<>();
 
+
+
     public String getTitle() {
         return title;
     }
@@ -69,6 +71,10 @@ public class Poll {
 
     public void addPollPart(PollPart value){
         pollParts.add(value);
+    }
+
+    public int getPartSize(){
+        return pollParts.size();
     }
 
     public boolean removePollPart(PollPart pollPart){

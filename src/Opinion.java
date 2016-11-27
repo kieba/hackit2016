@@ -1,11 +1,13 @@
+import exception.AlreadyVotedException;
 import exception.InvalidRequestException;
-import model.User;
+import model.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * Servlet implementation class Opinion
@@ -34,15 +36,31 @@ public class Opinion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User citizen = SimpleStorage.getINSTANCE().getUser(request.getParameter("citizen"));
-		if(citizen == null){
+		IStorage storage = SimpleStorage.getINSTANCE();
+
+		User user = storage.getUser(Integer.parseInt(request.getParameter("citizen")));
+		Citizen citizen;
+		if(user instanceof Citizen){
+			citizen = (Citizen)user;
+		}else{
 			throw new InvalidRequestException("No user given.");
 		}
 
+		try {
+			storage.doVote(new PollAnswer(storage.getPollById(Integer.parseInt(request.getParameter("poll_id"))),citizen));
+		} catch (AlreadyVotedException e) {
+			return;
+		}
 
-		//PollPart pollPart = (PollPart) request.getParameter("poll_part");
-		//Object answer = request.getParameter("question_1");
-		//PollPartAnswer answer = new PollPartAnswer(po);
+		Poll currentPoll = storage.getPollById(Integer.parseInt(request.getParameter("poll_id")));
+		Iterator<PollPart> iterator = currentPoll.getPollParts();
+
+		while (iterator.hasNext()){
+			PollPart part = iterator.next();
+			part.addVote(Integer.parseInt(request.getParameter("pollPart_id" + part.getPartNo())));
+		}
+
+		storage.savePoll(currentPoll);
 		doGet(request, response);
 	}
 

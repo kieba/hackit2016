@@ -4,6 +4,7 @@ public class PollPartOption {
     private int optionId;
     private String description;
     private String value;
+    private int currentVotes = 0;
 
     public PollPartOption(int optionId, String description, String value) {
         this.optionId = optionId;
@@ -33,5 +34,11 @@ public class PollPartOption {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getVotes(){return currentVotes;}
+
+    public void addVote(){
+        currentVotes++;
     }
 }

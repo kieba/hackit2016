@@ -37,4 +37,8 @@ public class PollPart {
     public void setQuestion(String question) {
         this.question = question;
     }
+
+    public void addVote(int voteOption){
+        options.get(voteOption).addVote();
+    }
 }

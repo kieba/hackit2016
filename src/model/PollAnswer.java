@@ -24,4 +24,7 @@ public class PollAnswer {
     public void setCitizen(Citizen citizen) {
         this.citizen = citizen;
     }
+
+
+
 }

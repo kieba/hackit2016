@@ -18,5 +18,5 @@ public interface IStorage {
     Poll savePoll(Poll poll);
     Poll getPollById(int id);
 
-    void setVote(PollAnswer answer) throws AlreadyVotedException;
+    void doVote(PollAnswer answer) throws AlreadyVotedException;
 }
