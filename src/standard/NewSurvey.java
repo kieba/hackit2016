@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedList;
 
 /**
@@ -43,6 +42,8 @@ public class NewSurvey extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		IStorage storage = SimpleStorage.getINSTANCE();
 
+		AccountLogic logic = new AccountLogic(Integer.parseInt(request.getParameter("account_id")));
+
 		Politician politician = (Politician) storage.getUser(2);
 		
 		long validUntil = 0l;
@@ -52,8 +53,9 @@ public class NewSurvey extends HttpServlet {
 		
 		try {
 			if(validUntilString != null) {
-				Date test = SimpleDateFormat.getDateInstance().parse(validUntilString, "S");
-				validUntil = test.getTime();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				validUntil = sdf.parse(validUntilString).getTime();
+
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -87,7 +89,7 @@ public class NewSurvey extends HttpServlet {
 			poll.addPollPart(new PollPart(options, position, request.getParameter("question"+position)));
 		}
 		storage.savePoll(poll);
-		
+		response.sendRedirect("/surveylist.jsp?account_id=" + logic.getUser().getId());
 		doGet(request, response);
 	}
 
