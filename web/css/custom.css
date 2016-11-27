@@ -6,3 +6,21 @@
 .logopadder {
 	padding : 10px;
 }
+
+.survey-gp {
+	border-style: solid;
+    border-width: thin;
+    border-radius: 5px;
+    border-color: #ccc;
+    padding: 1em;
+}
+
+.surveylistview {
+	width: 100%;
+}
+
+.footerup {
+	border-top-style: solid;
+    border-top-width: thin;
+    margin-top: 2em;
+}

@@ -17,23 +17,23 @@
 <%!
 
     private String printPart(PollPart part){
-    StringBuilder builder = new StringBuilder();
+    	StringBuilder builder = new StringBuilder();
 
-    builder.append("<table>");
-    builder.append("<tr colspan=\"" + part.getOptions().size() + "\"><td>" + part.getQuestion() + "</td></tr>");
-    builder.append("<tr>");
+	   builder.append("<table class=\"table\">");
+	   builder.append("<tr colspan=\"" + part.getOptions().size() + "\"><td>" + part.getQuestion() + "</td></tr>");
+	   builder.append("<tr>");
 
-    for(PollPartOption option : part.getOptions()){
-    builder.append(printOption(option));
-    }
+    	for(PollPartOption option : part.getOptions()){
+    		builder.append(printOption(option));
+    	}
 
-    builder.append("</tr>");
-    builder.append("</table>");
-    return builder.toString();
+    	builder.append("</tr>");
+    	builder.append("</table>");
+    	return builder.toString();
     }
 
     private String printOption(PollPartOption option){
-    return "<td>" + option.getValue() + ":" + option.getVotes() + "</td>";
+    	return "<td>" + option.getValue() + ":" + option.getVotes() + "</td>";
     }
 %>
 
@@ -87,8 +87,9 @@
         int id = Integer.parseInt(request.getParameter("id"));
         Poll poll = SimpleStorage.getINSTANCE().getPollById(id);
 
-
-        out.print("<table>");
+		out.println("<lable>" + poll.getTitle() + "</label>");
+        
+        out.print("<table class=\"table\">");
         for (Iterator<PollPart> it = poll.getPollParts(); it.hasNext(); ) {
             PollPart part = it.next();
             out.append("<tr>" + printPart(part) + "</tr>");
@@ -99,7 +100,7 @@
 
 
     <!-------------------------CONTENT LOAD END------------------------->
-    <footer>
+    <footer class="footerup">
         <p>2016 Citizen , HACKATHON ACCENTURE </p>
     </footer>
 </div>

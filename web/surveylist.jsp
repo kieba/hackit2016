@@ -57,31 +57,24 @@
 <%
     Iterator<Poll> polls = SimpleStorage.getINSTANCE().getOpenPollsByPostcode(Integer.valueOf(request.getParameter("postalcode")));
 
-    out.println("<!DOCTYPE html>");
-    out.println("<html><head>");
-    out.println("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
-    out.println("<title>test</title></head>");
-    out.println("<body>");
     out.println("<form name=\"OpinionOverview\" method=\"post\">");
-    out.println("<p>Umfragen f&uuml;r</p>");
-    out.println("<input type=\"text\" name=\"name\" value=\"" + request.getParameter("name") + "\"/>");
-    out.println("<input type=\"text\" name=\"postalcode\" value\"" + request.getParameter("postalcode") + "\"></br>");
+    out.println("<label>Survey for:</label><br><br>");
+    //out.println("<input type=\"text\" name=\"name\" value=\"" + request.getParameter("name") + "\"/>");
+    //out.println("<input type=\"text\" name=\"postalcode\" value\"" + request.getParameter("postalcode") + "\"></br>");
 
     while(polls.hasNext())
     {
         Poll poll = polls.next();
-        out.println("<a href=\"survey.jsp?id=" + poll.getId() + "\">" + poll.getTitle() + " - " + poll.getDescription() + "</a></br>");
+        out.println("<div class=\"survey-gp surveylistview\"><a href=\"survey.jsp?id=" + poll.getId() + "\">" + "<label>" + poll.getTitle() + " - " + poll.getDescription()  + "</label>" + "</a></div></br>");
 
     }
 
     out.println("</form>");
-    out.println("</body>");
-    out.println("</html>");
 %>
 
 
     <!-------------------------CONTENT LOAD END------------------------->
-    <footer>
+    <footer class="footerup">
         <p>2016 Citizen , HACKATHON ACCENTURE </p>
     </footer>
 </div>
