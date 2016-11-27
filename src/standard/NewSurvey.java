@@ -2,6 +2,8 @@ package standard;
 
 import model.Politician;
 import model.Poll;
+import model.PollPart;
+import model.PollPartOption;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +13,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 
 /**
  * Servlet implementation class NewOpinion
@@ -44,9 +47,12 @@ public class NewSurvey extends HttpServlet {
 		
 		long validUntil = 0l;
 		String validUntilString = request.getParameter("validUntil");
+		if(validUntilString == null || "".equals(validUntilString))
+			return;
+		
 		try {
 			if(validUntilString != null) {
-				Date test = SimpleDateFormat.getDateInstance().parse(validUntilString);
+				Date test = SimpleDateFormat.getDateInstance().parse(validUntilString, "S");
 				validUntil = test.getTime();
 			}
 		} catch (ParseException e) {
@@ -54,7 +60,34 @@ public class NewSurvey extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		storage.savePoll(new Poll(politician, request.getParameter("title"), validUntil, request.getParameter("description")));
+		String titleString = request.getParameter("title");
+		String descriptionString = request.getParameter("description");
+		if(titleString == null || "".equals(titleString) || descriptionString == null || "".equals(descriptionString))
+			return;
+		
+		Poll poll = new Poll(politician, titleString, validUntil, descriptionString);
+		String quantityQuestionsString = request.getParameter("quantityQuestions");
+		if(quantityQuestionsString == null || "".equals(quantityQuestionsString)) {
+			return;
+		}
+		int quantityQuestions = Integer.valueOf(quantityQuestionsString);
+		int position;
+		for(int i = 0;i < quantityQuestions;i++){
+			position = i+1;
+			LinkedList<PollPartOption> options = new LinkedList<>();
+			String countOptionsString = request.getParameter("countOptions"+position);
+			if(countOptionsString == null || "".equals(countOptionsString))
+				return;
+			int countOptions = Integer.valueOf(countOptionsString);
+			int optionPos = 0;
+			for(int j = 0; j < countOptions; j++) {
+				optionPos = j+1;
+				options.add(new PollPartOption(optionPos, request.getParameter("option_" + position + "_" + optionPos), String.valueOf(optionPos)));
+			}
+			poll.addPollPart(new PollPart(options, position, request.getParameter("question"+position)));
+		}
+		storage.savePoll(poll);
+		
 		doGet(request, response);
 	}
 

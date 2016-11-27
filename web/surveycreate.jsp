@@ -53,7 +53,7 @@
   </nav>
   <div class="container">
   <!-------------------------CONTENT LOAD ---------------------------->
-  <form name="newForm" action="standard.NewSurvey" method="post">
+  <form name="newForm" action="NewSurvey" method="post">
   	<div class="form-group">
   		<label for="title">Titel:</label><input type="text" name="title" value="" class="form-control"/>
   	</div>
@@ -89,7 +89,7 @@
 			var optionContent = '';
 			for(i=0;i<optionCount;i++) {
 				pos = i+1;
-				optionContent += '<span>Option: ' + pos + '</span><input name="option' + pos + 'text" type="text" class="form-control"/></p>';
+				optionContent += '<span>Option: ' + pos + '</span><input name="option_' + questionNo + '_' + pos + '" type="text" class="form-control"/></p>';
 				}
 			document.getElementById('optionContainer'+questionNo).innerHTML = optionContent;
         }

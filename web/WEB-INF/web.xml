@@ -11,5 +11,13 @@
         <servlet-name>Opinion</servlet-name>
         <url-pattern>/Opinion</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>NewSurvey</servlet-name>
+        <servlet-class>standard.NewSurvey</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NewSurvey</servlet-name>
+        <url-pattern>/NewSurvey</url-pattern>
+    </servlet-mapping>
 
 </web-app>

@@ -1,4 +1,50 @@
+<%@ page import="model.User" %>
+<%@ page import="standard.AccountLogic" %>
+<%@ page import="standard.SimpleStorage" %>
+<%@ page import="model.Citizen" %>
+<%@ page import="exception.AlreadyExistException" %>
+<%@ page import="model.Politician" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    if(request.getMethod().equals("POST")){
+        SimpleStorage storage = SimpleStorage.getINSTANCE();
+
+        String name = request.getParameter("name");
+        int postCode = 0;
+        if(request.getParameter("postcode")!= null && !request.getParameter("postcode").equals("")){
+            postCode = Integer.parseInt(request.getParameter("postcode"));
+        }
+
+        boolean isCitizen = request.getParameter("type").equals("citizen");
+
+        User user;
+
+        if(isCitizen){
+            try {
+                user = storage.createUser(new Citizen(name,postCode));
+            } catch (AlreadyExistException e) {
+                user = storage.getUser(name);
+            }
+        }else{
+            try {
+                Politician politician = new Politician(name);
+                politician.addAffiliation(postCode);
+                user = storage.createUser(politician);
+            } catch (AlreadyExistException e) {
+                user = storage.getUser(name);
+            }
+        }
+
+        response.sendRedirect("/index.jsp?account_id="+user.getId());
+        return;
+    }
+
+
+    AccountLogic logic = null;
+    if(request.getParameter("account_id")!= null){
+        logic = new AccountLogic(Integer.parseInt(request.getParameter("account_id")));
+    }
+%>
 <html>
   <head>
   	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,26 +62,45 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand logopadder" href="startpage.jsp">
+          <a class="navbar-brand logopadder" href="index.jsp">
           <img alt="logo" src="img/logo2.png" class="logoresize">
 		  </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse" >
+            <%
+                if(logic != null){
+            %>
           <ul class="nav navbar-nav">
-            <li><a href="?side=survey">Survey</a></li>
-            <li><a href="?side=request">Request</a></li>
+            <li><a href="surveylist.jsp?account_id=<%=logic.getUser().getId()%>">Survey List</a></li>
+              <%
+                  if(logic.isPolitician()){
+              %>
+                <li><a href="surveycreate.jsp?account_id=<%=logic.getUser().getId()%>">Request</a></li>
+              <%
+                  }
+              %>
            </ul>
+            <%
+                }
+            %>
            <ul class="nav navbar-nav navbar-right">
-	           <form class="navbar-form navbar-right">
+	           <form class="navbar-form navbar-right" method="post">
 	            <div class="form-group">
-	              <input type="text" placeholder="Firstname" class="form-control">
+	              <input type="text" name="name" placeholder="Firstname" class="form-control" <%=(logic!= null ? ("value=" + logic.getUser().getName()) : "")%>>
 	            </div>
-	            <div class="form-group">
-	              <input type="password" placeholder="Lastname" class="form-control">
-	            </div>
+                   <%
+                       if(logic==null){
+                   %>
+               <div class="form-group">
+                   <input type="text" name="postcode" placeholder="Postcode" class="form-control" >
+               </div>
+
 	            <span class="label label-default">Login as:</span>
-	            <button type="button" class="btn btn-primary">Citizen</button>
-	            <button type="button" class="btn btn-primary">Politician</button>
+	            <button type="submit" class="btn btn-primary" name="type" value="citizen">Citizen</button>
+	            <button type="submit" class="btn btn-primary" name="type" value="politician">Politician</button>
+                   <%
+                       }
+                   %>
 	          </form>
 
            </ul>
